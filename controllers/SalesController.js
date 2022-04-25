@@ -22,7 +22,18 @@ const getById = async (req, res) => {
   }
 };
 
+const postSale = async (req, res) => {
+  try {
+  const { sales } = req.body;
+  const postSales = await salesService.postSale(sales);
+  return res.status(201).json(postSales);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+};
+
 module.exports = {
   getAll,
   getById,
+  postSale,
 };

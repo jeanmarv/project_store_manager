@@ -23,7 +23,18 @@ const getById = async (req, res) => {
   }
 };
 
+const postProduct = async (req, res) => {
+  try {
+  const { name, quantity } = req.body;
+  const postProducts = await productService.postProduct(name, quantity);
+  return res.status(201).json(postProducts);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+};
+
 module.exports = {
   getAll,
   getById,
+  postProduct,
 };
