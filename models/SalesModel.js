@@ -1,7 +1,7 @@
 const connection = require('./connection');
 
 const getAll = async () => {
-  const [sales] = await connection.execute(`SELECT 
+  const sales = await connection.execute(`SELECT 
   sale_id as saleId,
   date,
   product_id as productId,
