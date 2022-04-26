@@ -21,8 +21,24 @@ const postSale = async (sales) => {
   };
 };
 
+const updateSales = async (id, sales) => {  
+  sales.forEach(async (sale) => {
+    await salesModel.updateSales(id, sale);
+  });
+return {
+  saleId: id,
+  itemUpdated: sales,
+};
+};
+
+const removeSales = async (id) => {
+  await salesModel.removeSales(id);
+};
+
 module.exports = {
   getAll,
   getById,
   postSale,
+  updateSales,
+  removeSales,
 };
