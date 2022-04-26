@@ -8,6 +8,12 @@ routes.get('/', productControl.getAll);
 
 routes.get('/:id', productControl.getById);
 
-routes.post('/', validation.validateName, validation.validateQuantity, productControl.postProduct);
+routes.post('/', validation.validateName,
+validation.validateQuantity,
+productControl.postProduct);
+
+routes.put('/:id', validation.validateName,
+validation.validateQuantity,
+productControl.updateProducts);
 
 module.exports = routes;

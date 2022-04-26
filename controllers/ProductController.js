@@ -28,7 +28,6 @@ const postProduct = async (req, res) => {
   const { name, quantity } = req.body;
 
   const nameVerification = await productService.registerProduct(name);
-
   if (nameVerification) {
     return res.status(409).json({ message: 'Product already exists' });
   }
@@ -40,8 +39,26 @@ const postProduct = async (req, res) => {
   }
 };
 
+const updateProducts = async (req, res) => {
+  try {
+  const { id } = req.params;
+  const { name, quantity } = req.body;
+
+  const product = await productService.updateProducts(id, { name, quantity });
+  const getByID = await productService.getById(id);
+
+  if (!getByID) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+  return res.status(200).json(product);
+  } catch (err) {
+    return res.status(500).send(err.message);
+  }
+};
+
 module.exports = {
   getAll,
   getById,
   postProduct,
+  updateProducts,
 };
