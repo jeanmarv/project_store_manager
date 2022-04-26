@@ -53,7 +53,6 @@ const removeSales = async (req, res) => {
   const { id } = req.params;
 
   const getID = await salesService.getById(id);
-
   if (!getID || !getID.length) {
     return res.status(404).json({ message: 'Sale not found' });
   }
