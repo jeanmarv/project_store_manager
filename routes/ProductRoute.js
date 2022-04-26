@@ -16,4 +16,6 @@ routes.put('/:id', validation.validateName,
 validation.validateQuantity,
 productControl.updateProducts);
 
+routes.delete('/:id', productControl.removeProduct);
+
 module.exports = routes;
