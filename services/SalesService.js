@@ -35,20 +35,17 @@ return {
 };
 
 const removeSales = async (id) => {
-  const allID = await salesModel.allID();
-  const findID = allID.find((saleID) => saleID.id === id);
-
-  if (!findID) {
+  const allSalesId = await salesModel.allID();
+  const findSale = allSalesId.find((saleID) => saleID.id === id);
+  if (!findSale) {
     return false;
   }
+  const sales = await salesModel.getAll();
+  const filterSale = sales.filter((filteredID) => filteredID.saleId === id);
 
-  const allSales = await salesModel.getAll();
-  const filteredSale = allSales.filter((filteredID) => filteredID.saleId === id);
-
-  filteredSale.forEach((sale) => { 
+  filterSale.forEach((sale) => { 
     updateQuantity.updateQuantity(sale.productId, (-sale.quantity));
   });
-
   await salesModel.removeSales(id);
 };
 
