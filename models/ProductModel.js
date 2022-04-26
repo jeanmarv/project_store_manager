@@ -26,8 +26,18 @@ const postProduct = async (name, quantity) => {
   };
 };
 
+const registerProduct = async (name) => {
+  const select = 'SELECT * FROM StoreManager.products WHERE name = ?';
+  const [product] = await connection.query(select, name);
+  
+  if (product[0] !== undefined) {
+    return product[0];
+  }
+};
+
 module.exports = {
   getAll,
   getById,
   postProduct,
+  registerProduct,
 };

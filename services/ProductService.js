@@ -15,8 +15,14 @@ const postProduct = async (name, quantity) => {
   return product;
 };
 
+const registerProduct = async (name) => {
+  const product = await productModel.registerProduct(name);
+  return product;
+};
+
 module.exports = {
   getAll,
   getById,
   postProduct,
+  registerProduct,
 };

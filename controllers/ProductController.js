@@ -26,6 +26,13 @@ const getById = async (req, res) => {
 const postProduct = async (req, res) => {
   try {
   const { name, quantity } = req.body;
+
+  const nameVerification = await productService.registerProduct(name);
+
+  if (nameVerification) {
+    return res.status(409).json({ message: 'Product already exists' });
+  }
+  
   const postProducts = await productService.postProduct(name, quantity);
   return res.status(201).json(postProducts);
   } catch (err) {
