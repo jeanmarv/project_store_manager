@@ -47,4 +47,23 @@ describe('Testes para a tabela sales da camada controller', () => {
         expect(res.status.calledWith(200)).to.be.equal(true);
     });
   });
+  describe('Controller RemoveSales, remove o produto e manda status correto:', () => {
+    it('Certifica que é retornado o status correto', async () => {
+
+      req.params = { id: 100 };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub();
+      sinon.stub(salesService, 'getById').resolves(false);
+      sinon.stub(salesService, 'removeSales').resolves();
+
+      await salesController.removeSales(req, res);
+
+      expect(res.status.calledWith(404)).to.be.true;
+      expect(res.json.calledWith({ message: 'Sale not found' })).to.be.true;
+      salesService.removeSales.restore();
+      salesService.getById.restore();
+
+    })
+  })
 });

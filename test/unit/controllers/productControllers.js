@@ -46,4 +46,41 @@ describe('Testes para a tabela products da camada controller', () => {
         expect(res.status.calledWith(200)).to.be.equal(true);
     });
   });
+  describe('Controller removeProduct, remove um produto do banco de dados', () => {
+    it('Certifica que é retornado o status correto', async () => {
+
+      req.params = { id: 100 };
+
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub();
+      sinon.stub(productService, 'getById').resolves(false);
+      sinon.stub(productService, 'removeProduct').resolves();
+
+      await productControl.removeProduct(req, res);
+
+      expect(res.status.calledWith(404)).to.be.true;
+      expect(res.json.calledWith({ message: 'Product not found' })).to.be.true;
+      productService.removeProduct.restore();
+      productService.getById.restore();
+
+    })
+  })
+  describe('Controller removeProduct, remove o produto e madna mensagem 204:', () => {
+    it('Caso correto manda o status especifico', async () => {
+      req.params = { id: 1 };
+  
+      res.status = sinon.stub().returns(res);
+      res.end = sinon.stub();
+      sinon.stub(productService, 'getById').resolves(true);
+      sinon.stub(productService, 'removeProduct').resolves();
+  
+      await productControl.removeProduct(req, res);
+
+      expect(res.status.calledWith(204)).to.be.true;
+      expect(res.end.called).to.be.true;
+      productService.removeProduct.restore();
+      productService.getById.restore();
+  
+    })
+  })
 });
