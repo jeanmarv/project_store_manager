@@ -36,10 +36,12 @@ return {
 
 const removeSales = async (id) => {
   const allSalesId = await salesModel.allID();
+
   const findSale = allSalesId.find((saleID) => saleID.id === parseInt(id, 10));
   if (!findSale) {
     return false;
   }
+
   const sales = await salesModel.getAll();
   const filterSale = sales.filter((filteredID) => filteredID.saleId === parseInt(id, 10));
 
