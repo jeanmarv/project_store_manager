@@ -1,6 +1,8 @@
 const express = require('express');
+const rescue = require('express-rescue');
 const salesController = require('../controllers/SalesController');
 const validateSales = require('../middlewares/ValidateSales');
+const validateQuantity = require('../externals/Validation');
 
 const routes = express.Router();
 
@@ -14,6 +16,7 @@ salesController.postSale);
 
 routes.put('/:id', validateSales.validateProductID,
 validateSales.validateQuantity,
+rescue(validateQuantity.availability),
 salesController.updateSales);
 
 routes.delete('/:id', salesController.removeSales);

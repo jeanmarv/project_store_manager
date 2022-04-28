@@ -44,4 +44,18 @@ describe('Testes para a tabela de sales da camada Model', () => {
       expect(products).to.have.property("quantity");
     });
   });
+  describe("Model Post, posta um produto criado", () => {
+    before(() => {
+      sinon.stub(connection, 'execute').resolves([{ id: 1, name: "Martelo de Thor", quantity: 10 }]);
+    });
+    after(() => {
+      connection.execute.restore();
+    });
+    it("Retorna com sucesso o produto criado", async () => {
+      const products = await salesService.postSale( {productId:10, itemsSold:10} );
+      expect(products).to.have.property("id").to.be.equal(undefined);
+      expect(products).to.have.property("name");
+      expect(products).to.have.property("quantity");
+    });
+  });
 });
