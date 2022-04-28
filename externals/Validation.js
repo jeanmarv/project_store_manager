@@ -1,9 +1,9 @@
-const productsService = require('../services/ProductService');
+const productModel = require('../models/ProductModel');
 
 const availability = async (req, res, next) => {
   const [{ productId, quantity }] = req.body;
 
-  const product = await productsService.getById(productId);
+  const product = await productModel.getById(productId);
 
   const soma = product.quantity - quantity;
 

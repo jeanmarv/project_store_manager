@@ -12,6 +12,7 @@ routes.get('/:id', salesController.getById);
 
 routes.post('/', validateSales.validateProductID,
 validateSales.validateQuantity,
+rescue(validateQuantity.availability),
 salesController.postSale);
 
 routes.put('/:id', validateSales.validateProductID,
